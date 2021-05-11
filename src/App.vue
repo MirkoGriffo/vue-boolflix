@@ -1,28 +1,63 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Header @performSearch="cercaFilm" />
+    <Main :films="listaFilm" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import axios from "axios";
+import Header from "@/components/Header.vue";
+import Main from "@/components/Main.vue";
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    Header,
+    Main,
+  },
+  data() {
+    return {
+      listaFilm: [],
+      filmAPI: "https://api.themoviedb.org/3/search/movie",
+      trendAPI: "https://api.themoviedb.org/3/trending/all/week",
+    };
+  },
+  created() {
+    axios
+      .get(this.trendAPI, {
+        params: {
+          api_key: "36e4892e17d62c22400a959373f6e799",
+        },
+      })
+      .then((res) => {
+        this.listaFilm = res.data.results;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  methods: {
+    cercaFilm(text) {
+      axios
+        .get(this.filmAPI, {
+          params: {
+            api_key: "36e4892e17d62c22400a959373f6e799",
+            query: text,
+            language: "it-IT",
+          },
+        })
+        .then((res) => {
+          this.listaFilm = res.data.results;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
