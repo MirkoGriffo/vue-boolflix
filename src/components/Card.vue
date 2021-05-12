@@ -16,8 +16,11 @@
       </li>
 
       <li>
-        <strong>Lingua Originale:</strong>
-        {{ info.original_language }}
+        <img
+          v-if="isFlag(info.original_language)"
+          :src="require(`@/assets/img/${info.original_language}.png`)"
+          alt=""
+        />
       </li>
       <li>
         <strong>Voto:</strong>
@@ -32,7 +35,14 @@ export default {
   name: "Card",
   props: ["info"],
   data() {
-    return {};
+    return {
+      flagsImg: ["it", "en"],
+    };
+  },
+  methods: {
+    isFlag(lang) {
+      return this.flagsImg.includes(lang);
+    },
   },
 };
 </script>
