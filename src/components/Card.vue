@@ -2,17 +2,17 @@
   <div class="card">
     <img
       class="poster"
-      :src="`https://image.tmdb.org/t/p/w342/${info.poster_path}`"
+      :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`"
       alt=""
     />
     <ul>
       <li>
         <strong>Titolo:</strong>
-        {{ info.title }}
+        {{ info.title ? info.title : info.name }}
       </li>
       <li>
         <strong>Titolo Originale:</strong>
-        {{ info.original_title }}
+        {{ info.original_title ? info.original_title : info.original_name }}
       </li>
 
       <li>

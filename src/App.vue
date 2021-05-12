@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @performSearch="cercaFilm" />
-    <Main :films="listaFilm" />
+    <Main :films="listaFilm" :series="listaSerie" />
   </div>
 </template>
 
@@ -18,7 +18,9 @@ export default {
   data() {
     return {
       listaFilm: [],
-      filmAPI: "https://api.themoviedb.org/3/search/movie",
+      listaSerie: [],
+      apiUrl: "https://api.themoviedb.org/3/search/",
+      apiKey: "36e4892e17d62c22400a959373f6e799",
       trendAPI: "https://api.themoviedb.org/3/trending/all/week",
     };
   },
@@ -26,7 +28,7 @@ export default {
     axios
       .get(this.trendAPI, {
         params: {
-          api_key: "36e4892e17d62c22400a959373f6e799",
+          api_key: this.apiKey,
         },
       })
       .then((res) => {
@@ -38,20 +40,36 @@ export default {
   },
   methods: {
     cercaFilm(text) {
-      axios
-        .get(this.filmAPI, {
-          params: {
-            api_key: "36e4892e17d62c22400a959373f6e799",
-            query: text,
-            language: "it-IT",
-          },
-        })
-        .then((res) => {
-          this.listaFilm = res.data.results;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (text !== " ") {
+        const apiParams = {
+          api_key: this.apiKey,
+          query: text,
+          language: "it-IT",
+        };
+        //Film
+        axios
+          .get(this.apiUrl + "movie", {
+            params: apiParams,
+          })
+          .then((res) => {
+            this.listaFilm = res.data.results;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        //Serie tv
+        axios
+          .get(this.apiUrl + "tv", {
+            params: apiParams,
+          })
+          .then((res) => {
+            this.listaSerie = res.data.results;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 };

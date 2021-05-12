@@ -1,6 +1,13 @@
 <template>
   <main>
-    <Card v-for="item in films" :key="item.id" :info="item" />
+    <section v-show="films.length" class="films">
+      <h2>Film</h2>
+      <Card v-for="film in films" :key="film.id" :info="film" />
+    </section>
+    <section v-show="series.length" class="serie">
+      <h2>Serie TV</h2>
+      <Card v-for="serie in series" :key="serie.id" :info="serie" />
+    </section>
   </main>
 </template>
 
@@ -12,7 +19,11 @@ export default {
   components: {
     Card,
   },
-  props: ["films"],
+  props: {
+    films: Array,
+    series: Array,
+  },
+
   data() {
     return {};
   },
