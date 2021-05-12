@@ -78,4 +78,10 @@ export default {
 <style lang="scss">
 #app {
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
 </style>
