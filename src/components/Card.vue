@@ -2,7 +2,7 @@
   <div class="card">
     <img
       class="poster"
-      :src="`https://image.tmdb.org/t/p/w300/${info.poster_path}`"
+      :src="`https://image.tmdb.org/t/p/w342/${info.poster_path}`"
       alt=""
     />
     <ul>
@@ -23,8 +23,19 @@
         />
       </li>
       <li>
-        <strong>Voto:</strong>
-        {{ info.vote_average }}
+        <strong>Voto: </strong>
+        <span
+          v-for="(stella, index) in convertiNumero(info.vote_average)"
+          :key="index"
+        >
+          <i class="fa fa-star"></i>
+        </span>
+        <span
+          v-for="(stella, index) in 5 - convertiNumero(info.vote_average)"
+          :key="index"
+        >
+          <i class="far fa-star"></i>
+        </span>
       </li>
     </ul>
   </div>
@@ -42,6 +53,9 @@ export default {
   methods: {
     isFlag(lang) {
       return this.flagsImg.includes(lang);
+    },
+    convertiNumero(voto) {
+      return Math.round(voto / 2);
     },
   },
 };
