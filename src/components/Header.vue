@@ -42,6 +42,8 @@ header {
   height: 130px;
   width: 100%;
   background-color: black;
+  position: fixed;
+  z-index: 1;
 }
 form {
   display: flex;

@@ -6,7 +6,12 @@
       :src="`https://image.tmdb.org/t/p/w342/${info.poster_path}`"
       alt=""
     />
-    <img v-else class="poster" src="@/assets/img/not-found.png" alt="" />
+    <img
+      v-else
+      class="poster"
+      src="@/assets/img/poster-placeholder.png"
+      alt=""
+    />
     <div class="overlay">
       <ul>
         <li>
